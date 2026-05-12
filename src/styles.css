@@ -46,7 +46,7 @@
   --radius: 0.875rem;
 
   /* Cinematic warm luxury palette */
-  --background: oklch(0.16 0.018 60);          /* deep warm black */
+  --background: oklch(0.19 0.028 55);          /* rich espresso mocha */
   --foreground: oklch(0.94 0.025 80);          /* cream */
   --card: oklch(0.21 0.022 60);
   --card-foreground: oklch(0.94 0.025 80);
@@ -95,7 +95,7 @@
   }
 
   body {
-    background: var(--gradient-warm);
+    background-color: oklch(0.14 0.02 50);
     color: var(--color-foreground);
     font-family: var(--font-body);
     font-feature-settings: "ss01", "cv11";
@@ -201,4 +201,42 @@
     to { transform: rotate(360deg); }
   }
   .loader-ring { animation: loader-spin 1.4s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite; }
+}
+
+@layer utilities {
+  .bg-gradient-warm-3d {
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, oklch(0.32 0.08 65 / 0.55), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 80% 30%, oklch(0.42 0.1 50 / 0.45), transparent 65%),
+      radial-gradient(ellipse 90% 70% at 50% 100%, oklch(0.26 0.06 55 / 0.7), transparent 70%),
+      linear-gradient(180deg, oklch(0.16 0.022 55) 0%, oklch(0.12 0.018 50) 100%);
+  }
+
+  .orb {
+    background: radial-gradient(circle at 30% 30%,
+      oklch(0.92 0.13 80 / 0.55) 0%,
+      oklch(0.78 0.14 70 / 0.35) 35%,
+      transparent 70%);
+    filter: blur(60px);
+    will-change: transform;
+  }
+
+  .orb-cocoa {
+    background: radial-gradient(circle at 70% 30%,
+      oklch(0.55 0.14 45 / 0.5) 0%,
+      oklch(0.38 0.1 40 / 0.35) 40%,
+      transparent 70%);
+    filter: blur(80px);
+    will-change: transform;
+  }
+
+  .grid-floor {
+    background-image:
+      linear-gradient(oklch(0.85 0.1 78 / 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.85 0.1 78 / 0.35) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+    transform-style: preserve-3d;
+  }
 }

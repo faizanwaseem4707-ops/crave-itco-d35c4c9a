@@ -51,7 +51,7 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="size-4 text-primary mt-0.5" />
-                <span>Karachi, Pakistan · Pre-order only</span>
+                <span>Quetta, Pakistan · Pre-order only</span>
               </li>
             </ul>
           </div>

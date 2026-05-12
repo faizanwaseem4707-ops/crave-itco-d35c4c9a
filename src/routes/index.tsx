@@ -12,6 +12,7 @@ import { Testimonials } from "@/components/site/Testimonials";
 import { InstagramSection } from "@/components/site/Instagram";
 import { PreOrder } from "@/components/site/PreOrder";
 import { Footer } from "@/components/site/Footer";
+import { Background3D } from "@/components/site/Background3D";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "A cinematic luxury home kitchen by Sana Ejaaz — handcrafted dumplings, baked indulgences and soulful comfort food. Pre-order in Karachi.",
+          "A cinematic luxury home kitchen by Sana Ejaaz — handcrafted dumplings, baked indulgences and soulful comfort food. Pre-order in Quetta.",
       },
       { property: "og:title", content: "crave-itco — Crave more, always" },
       {
@@ -47,6 +48,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <>
+      <Background3D />
       <Loader />
       <Nav />
       <main>

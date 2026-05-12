@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 
 const reviews = [
-  { quote: "The dumplings ruined every other dumpling for me. Cinematic in flavour and looks.", name: "Hira A.", role: "Karachi" },
+  { quote: "The dumplings ruined every other dumpling for me. Cinematic in flavour and looks.", name: "Hira A.", role: "Quetta" },
   { quote: "Filled cookies > therapy. The Biscoff one is a religious experience.", name: "Zayan K.", role: "Lahore" },
   { quote: "Sana's wings are dangerous. I ordered for one. I ate for three.", name: "Mahnoor S.", role: "DHA" },
 ];

@@ -48,6 +48,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <>
+      <Background3D />
       <Loader />
       <Nav />
       <main>

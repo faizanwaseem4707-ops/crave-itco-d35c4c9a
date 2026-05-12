@@ -95,7 +95,7 @@
   }
 
   body {
-    background: var(--gradient-warm);
+    background-color: oklch(0.14 0.02 50);
     color: var(--color-foreground);
     font-family: var(--font-body);
     font-feature-settings: "ss01", "cv11";

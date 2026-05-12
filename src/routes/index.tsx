@@ -12,6 +12,7 @@ import { Testimonials } from "@/components/site/Testimonials";
 import { InstagramSection } from "@/components/site/Instagram";
 import { PreOrder } from "@/components/site/PreOrder";
 import { Footer } from "@/components/site/Footer";
+import { Background3D } from "@/components/site/Background3D";
 
 export const Route = createFileRoute("/")({
   head: () => ({

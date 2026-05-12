@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "A cinematic luxury home kitchen by Sana Ejaaz — handcrafted dumplings, baked indulgences and soulful comfort food. Pre-order in Karachi.",
+          "A cinematic luxury home kitchen by Sana Ejaaz — handcrafted dumplings, baked indulgences and soulful comfort food. Pre-order in Quetta.",
       },
       { property: "og:title", content: "crave-itco — Crave more, always" },
       {

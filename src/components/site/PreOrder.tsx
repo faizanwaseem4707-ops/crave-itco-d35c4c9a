@@ -43,7 +43,7 @@ export function PreOrder() {
                 DM you on Instagram to confirm timing & delivery.
               </p>
               <ul className="mt-8 space-y-2.5 text-sm text-foreground/80">
-                {["24-hour notice for fresh items", "Karachi delivery & pickup", "DM us on @crave_itco anytime"].map((t) => (
+                {["24-hour notice for fresh items", "Quetta delivery & pickup", "DM us on @crave_itco anytime"].map((t) => (
                   <li key={t} className="flex items-center gap-3">
                     <span className="size-1.5 rounded-full bg-primary" />
                     {t}

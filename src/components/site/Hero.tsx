@@ -59,7 +59,7 @@ export function Hero() {
         >
           <span className="h-px w-10 bg-primary" />
           <span className="text-xs uppercase tracking-[0.4em] text-primary/90">
-            Pre-Order Only · Karachi
+            Pre-Order Only · Quetta
           </span>
         </motion.div>
 

@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Crave it co" },
+      { name: "description", content: "Crave Cinematic is a luxury food website showcasing premium 3D food items with cinematic visuals." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Crave it co" },
+      { property: "og:description", content: "Crave Cinematic is a luxury food website showcasing premium 3D food items with cinematic visuals." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Crave it co" },
+      { name: "twitter:description", content: "Crave Cinematic is a luxury food website showcasing premium 3D food items with cinematic visuals." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d937db7e-eaa8-4927-b150-c9507445c45b/id-preview-53fc2306--481128c4-f569-4f37-ace3-b11a6379461a.lovable.app-1778579593905.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d937db7e-eaa8-4927-b150-c9507445c45b/id-preview-53fc2306--481128c4-f569-4f37-ace3-b11a6379461a.lovable.app-1778579593905.png" },
     ],
     links: [
       {

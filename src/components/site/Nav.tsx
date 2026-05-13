@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const links = [
   { href: "#about", label: "About" },
@@ -36,8 +37,9 @@ export function Nav() {
             scrolled ? "glass-strong shadow-soft" : "bg-transparent"
           }`}
         >
-          <a href="#top" className="flex items-center gap-2">
-            <span className="font-script text-2xl text-gradient-gold leading-none">
+          <a href="#top" className="flex items-center gap-3">
+            <img src={logo} alt="Crave-itco logo" className="h-10 w-10 rounded-full object-cover ring-1 ring-border shadow-soft" />
+            <span className="font-script text-2xl text-gradient-gold leading-none hidden sm:inline">
               crave-itco
             </span>
           </a>

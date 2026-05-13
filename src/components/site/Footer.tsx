@@ -1,4 +1,4 @@
-import { Instagram, Mail, MapPin } from "lucide-react";
+import { Instagram, MapPin, MessageCircle } from "lucide-react";
 
 export function Footer() {
   return (
@@ -39,14 +39,14 @@ export function Footer() {
             <ul className="space-y-4 text-sm text-foreground/85">
               <li className="flex items-start gap-3">
                 <Instagram className="size-4 text-primary mt-0.5" />
-                <a href="https://instagram.com/crave_itco" target="_blank" rel="noreferrer" className="hover:text-primary">
-                  @crave_itco
+                <a href="https://instagram.com/crave_itco_01" target="_blank" rel="noreferrer" className="hover:text-primary">
+                  @crave_itco_01
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <Mail className="size-4 text-primary mt-0.5" />
-                <a href="mailto:hello@craveitco.com" className="hover:text-primary">
-                  hello@craveitco.com
+                <MessageCircle className="size-4 text-primary mt-0.5" />
+                <a href="https://wa.me/923311300875" target="_blank" rel="noreferrer" className="hover:text-primary">
+                  WhatsApp · 0331 130 0875
                 </a>
               </li>
               <li className="flex items-start gap-3">
@@ -65,15 +65,15 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Floating Instagram FAB */}
+      {/* Floating WhatsApp FAB */}
       <a
-        href="https://instagram.com/crave_itco"
+        href="https://wa.me/923311300875"
         target="_blank"
         rel="noreferrer"
-        aria-label="Follow on Instagram"
+        aria-label="Chat on WhatsApp"
         className="fixed bottom-6 right-6 z-40 size-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-glow hover:scale-110 transition-transform"
       >
-        <Instagram className="size-5" />
+        <MessageCircle className="size-5" />
       </a>
     </footer>
   );

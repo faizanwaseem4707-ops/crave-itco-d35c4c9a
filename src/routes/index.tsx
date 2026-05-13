@@ -13,6 +13,8 @@ import { InstagramSection } from "@/components/site/Instagram";
 import { PreOrder } from "@/components/site/PreOrder";
 import { Footer } from "@/components/site/Footer";
 import { Background3D } from "@/components/site/Background3D";
+import { CartProvider } from "@/lib/cart";
+import { CartFab, CartDrawer } from "@/components/site/CartDrawer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -47,7 +49,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <>
+    <CartProvider>
       <Background3D />
       <Loader />
       <Nav />
@@ -63,7 +65,9 @@ function Index() {
         <PreOrder />
       </main>
       <Footer />
+      <CartFab />
+      <CartDrawer />
       <Toaster />
-    </>
+    </CartProvider>
   );
 }

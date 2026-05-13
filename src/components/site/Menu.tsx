@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Plus } from "lucide-react";
+import { useCart } from "@/lib/cart";
+import { toast } from "sonner";
 
 type Item = { name: string; price: string; note?: string };
 type Category = { title: string; items: Item[]; note?: string };
@@ -30,12 +33,7 @@ const categories: Category[] = [
       { name: "Sesame Seeds", price: "50" },
     ],
   },
-  {
-    title: "Chowmein",
-    items: [
-      { name: "Crispy Chicken Chowmein", price: "800", note: "tangy spicy sauce, sautéed veg" },
-    ],
-  },
+  { title: "Chowmein", items: [{ name: "Crispy Chicken Chowmein", price: "800", note: "tangy spicy sauce, sautéed veg" }] },
   {
     title: "Pasta",
     items: [
@@ -53,18 +51,8 @@ const categories: Category[] = [
       { name: "Jalapeño Sandwich", price: "600" },
     ],
   },
-  {
-    title: "Wings",
-    items: [
-      { name: "Crispy Chilli Garlic Honey Wings", price: "550", note: "8 pcs" },
-    ],
-  },
-  {
-    title: "Tacos",
-    items: [
-      { name: "Nashville Chicken Tacos", price: "1100", note: "4 pcs" },
-    ],
-  },
+  { title: "Wings", items: [{ name: "Crispy Chilli Garlic Honey Wings", price: "550", note: "8 pcs" }] },
+  { title: "Tacos", items: [{ name: "Nashville Chicken Tacos", price: "1100", note: "4 pcs" }] },
   {
     title: "Crave the Baked",
     items: [
@@ -94,9 +82,28 @@ const categories: Category[] = [
   },
 ];
 
+function parsePrice(p: string): number {
+  // strip "+" or "Rs", take first number
+  const m = p.replace("+", "").match(/\d+/);
+  return m ? parseInt(m[0], 10) : 0;
+}
+
 export function Menu() {
   const [active, setActive] = useState(0);
   const cat = categories[active];
+  const { add } = useCart();
+
+  const handleAdd = (item: Item) => {
+    const price = parsePrice(item.price);
+    if (price === 0) return;
+    add({
+      id: `${cat.title}-${item.name}`,
+      name: item.name,
+      price,
+      priceLabel: item.price,
+    });
+    toast.success(`${item.name} added to cart`);
+  };
 
   return (
     <section id="menu" className="relative py-32 px-6">
@@ -108,29 +115,22 @@ export function Menu() {
           transition={{ duration: 0.8 }}
           className="text-center max-w-3xl mx-auto mb-14"
         >
-          <span className="text-xs uppercase tracking-[0.4em] text-primary">
-            The Full Menu
-          </span>
+          <span className="text-xs uppercase tracking-[0.4em] text-primary">The Full Menu</span>
           <h2 className="mt-4 font-display text-5xl md:text-6xl leading-[1.05] tracking-tight">
-            Every craving,{" "}
-            <span className="italic text-gradient-gold">handcrafted</span>.
+            Every craving, <span className="italic text-gradient-gold">handcrafted</span>.
           </h2>
           <p className="mt-5 text-muted-foreground">
-            Prices in PKR. Pre-orders only — give us 24 hours and we'll plate
-            magic.
+            Tap <span className="text-primary">Add to Cart</span> on anything you crave — checkout sends your order straight to our WhatsApp.
           </p>
         </motion.div>
 
-        {/* Category pills */}
         <div className="mb-12 flex flex-wrap justify-center gap-2">
           {categories.map((c, i) => (
             <button
               key={c.title}
               onClick={() => setActive(i)}
               className={`rounded-full px-4 py-2 text-xs uppercase tracking-[0.18em] transition-all ${
-                i === active
-                  ? "bg-primary text-primary-foreground shadow-glow"
-                  : "glass text-foreground/75 hover:text-primary"
+                i === active ? "bg-primary text-primary-foreground shadow-glow" : "glass text-foreground/75 hover:text-primary"
               }`}
             >
               {c.title}
@@ -138,7 +138,6 @@ export function Menu() {
           ))}
         </div>
 
-        {/* Items */}
         <motion.div
           key={active}
           initial={{ opacity: 0, y: 20 }}
@@ -148,9 +147,7 @@ export function Menu() {
         >
           <div className="mb-8 text-center">
             <h3 className="font-display text-4xl text-gradient-gold">{cat.title}</h3>
-            {cat.note && (
-              <p className="mt-2 text-sm font-script text-muted-foreground">{cat.note}</p>
-            )}
+            {cat.note && <p className="mt-2 text-sm font-script text-muted-foreground">{cat.note}</p>}
           </div>
           <div className="space-y-3">
             {cat.items.map((item, i) => (
@@ -159,23 +156,21 @@ export function Menu() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="group glass rounded-2xl px-6 py-5 flex items-center justify-between gap-6 hover:border-primary/40 hover:shadow-glow transition-all duration-300 cursor-pointer"
+                className="group glass rounded-2xl px-5 py-4 sm:px-6 sm:py-5 flex items-center justify-between gap-4 hover:border-primary/40 hover:shadow-glow transition-all duration-300"
               >
                 <div className="flex-1 min-w-0">
-                  <div className="font-display text-xl text-foreground group-hover:text-primary transition-colors">
-                    {item.name}
-                  </div>
-                  {item.note && (
-                    <div className="text-xs text-muted-foreground mt-1 italic">
-                      {item.note}
-                    </div>
-                  )}
+                  <div className="font-display text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors">{item.name}</div>
+                  {item.note && <div className="text-xs text-muted-foreground mt-1 italic">{item.note}</div>}
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="hidden sm:block flex-1 border-t border-dashed border-border/60 w-12" />
-                  <span className="font-display text-xl text-gradient-gold whitespace-nowrap">
-                    Rs {item.price}
-                  </span>
+                <div className="flex items-center gap-3 shrink-0">
+                  <span className="font-display text-lg sm:text-xl text-gradient-gold whitespace-nowrap">Rs {item.price}</span>
+                  <button
+                    onClick={() => handleAdd(item)}
+                    aria-label={`Add ${item.name} to cart`}
+                    className="size-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:scale-110 transition-transform shadow-glow"
+                  >
+                    <Plus className="size-4" />
+                  </button>
                 </div>
               </motion.div>
             ))}

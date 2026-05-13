@@ -1,4 +1,4 @@
-import { Instagram, Mail, MapPin, MessageCircle } from "lucide-react";
+import { Instagram, MapPin, MessageCircle } from "lucide-react";
 
 export function Footer() {
   return (

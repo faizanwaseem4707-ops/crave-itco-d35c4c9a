@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import logo from "@/assets/logo.png";
 
 export function Loader() {
   const [done, setDone] = useState(false);
@@ -17,9 +18,9 @@ export function Loader() {
           exit={{ opacity: 0, transition: { duration: 0.7, ease: "easeInOut" } }}
         >
           <div className="relative flex flex-col items-center gap-6">
-            <div className="relative h-20 w-20">
-              <div className="loader-ring absolute inset-0 rounded-full border-2 border-transparent border-t-primary border-r-primary/40" />
-              <div className="absolute inset-3 rounded-full bg-gradient-to-br from-primary/30 to-transparent blur-md" />
+            <div className="relative h-24 w-24">
+              <div className="loader-ring absolute -inset-2 rounded-full border-2 border-transparent border-t-primary border-r-primary/40" />
+              <img src={logo} alt="Crave-itco" className="absolute inset-0 h-full w-full rounded-full object-cover shadow-soft" />
             </div>
             <motion.p
               className="font-script text-2xl text-gradient-gold tracking-wide"

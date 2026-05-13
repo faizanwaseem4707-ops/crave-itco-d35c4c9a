@@ -37,7 +37,7 @@ export function Background3D() {
       />
 
       {/* Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,oklch(0.1_0.015_55/0.7)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,oklch(0.85_0.04_70/0.35)_100%)]" />
     </div>
   );
 }

@@ -42,7 +42,11 @@ export function PreOrder() {
                 We bake, fold and plate to order. Tell us what you want — we'll
                 DM you on Instagram to confirm timing & delivery.
               </p>
-              <ul className="mt-8 space-y-2.5 text-sm text-foreground/80">
+              <div className="mt-6 inline-flex items-center gap-2 rounded-2xl border border-primary/40 bg-primary/10 px-4 py-2.5 text-xs uppercase tracking-[0.25em] text-primary font-semibold">
+                <span className="size-2 rounded-full bg-primary animate-pulse" />
+                Advance Payments Only
+              </div>
+              <ul className="mt-6 space-y-2.5 text-sm text-foreground/80">
                 {["24-hour notice for fresh items", "Quetta delivery & pickup", "WhatsApp 0331 130 0875"].map((t) => (
                   <li key={t} className="flex items-center gap-3">
                     <span className="size-1.5 rounded-full bg-primary" />

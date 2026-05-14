@@ -1,4 +1,5 @@
 import { Instagram, MapPin, MessageCircle } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 export function Footer() {
   return (
@@ -6,8 +7,9 @@ export function Footer() {
       <div className="mx-auto max-w-7xl">
         <div className="grid md:grid-cols-3 gap-12 mb-16">
           <div>
-            <div className="font-script text-4xl text-gradient-gold leading-none">
-              crave-itco
+            <div className="flex items-center gap-3">
+              <img src={logo} alt="Crave-itco" className="h-12 w-12 rounded-full object-cover ring-1 ring-border shadow-soft" />
+              <div className="font-script text-4xl text-gradient-gold leading-none">crave-itco</div>
             </div>
             <div className="text-xs uppercase tracking-[0.4em] text-muted-foreground mt-3">
               Crave more, always

@@ -9,6 +9,7 @@ import { Menu } from "@/components/site/Menu";
 import { Reels } from "@/components/site/Reels";
 import { WhyUs } from "@/components/site/WhyUs";
 import { Testimonials } from "@/components/site/Testimonials";
+import { Reviews } from "@/components/site/Reviews";
 import { InstagramSection } from "@/components/site/Instagram";
 import { PreOrder } from "@/components/site/PreOrder";
 import { Footer } from "@/components/site/Footer";
@@ -61,6 +62,7 @@ function Index() {
         <Reels />
         <WhyUs />
         <Testimonials />
+        <Reviews />
         <InstagramSection />
         <PreOrder />
       </main>

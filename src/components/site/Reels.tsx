@@ -1,30 +1,26 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Play, ChevronLeft, ChevronRight } from "lucide-react";
-import wings from "@/assets/food-wings.jpg";
-import pasta from "@/assets/food-pasta.jpg";
-import cookies from "@/assets/food-cookies.jpg";
-import tacos from "@/assets/food-tacos.jpg";
-import sandwich from "@/assets/food-sandwich.jpg";
-import dumplings from "@/assets/hero-dumplings.jpg";
+import { ChevronLeft, ChevronRight, Volume2, VolumeX } from "lucide-react";
 
 const reels = [
-  { img: dumplings, title: "Steamed to perfection", views: "12.4k" },
-  { img: wings, title: "Sticky honey glaze", views: "8.7k" },
-  { img: cookies, title: "Cookie melt moment", views: "21.1k" },
-  { img: pasta, title: "Pasta pull", views: "6.2k" },
-  { img: tacos, title: "Nashville heat", views: "9.8k" },
-  { img: sandwich, title: "BBQ stack-up", views: "5.4k" },
+  { src: "/reels/reel1.mp4", title: "Hand-folded magic" },
+  { src: "/reels/reel2.mp4", title: "Crispy on contact" },
+  { src: "/reels/reel3.mp4", title: "Pull-apart moment" },
+  { src: "/reels/reel4.mp4", title: "Nashville heat" },
+  { src: "/reels/reel5.mp4", title: "Cookie melt" },
+  { src: "/reels/reel6.mp4", title: "Crave it close" },
 ];
 
 export function Reels() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "center", dragFree: false },
-    [Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true })]
+    [Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]
   );
   const [selected, setSelected] = useState(0);
+  const [muted, setMuted] = useState(true);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -33,8 +29,19 @@ export function Reels() {
     onSel();
   }, [emblaApi]);
 
+  useEffect(() => {
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      v.muted = muted || i !== selected;
+      if (i === selected) {
+        v.currentTime = 0;
+        v.play().catch(() => {});
+      }
+    });
+  }, [selected, muted]);
+
   return (
-    <section id="reels" className="relative py-32 overflow-hidden">
+    <section id="reels" className="relative py-24 md:py-32 overflow-hidden">
       <div className="px-6 mx-auto max-w-7xl mb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -49,7 +56,7 @@ export function Reels() {
               Food, in <span className="italic text-gradient-gold">slow motion</span>.
             </h2>
           </div>
-          <p className="max-w-sm text-muted-foreground">Auto-sliding showcase — hover to pause, drag to scrub.</p>
+          <p className="max-w-sm text-muted-foreground">Real videos from our kitchen — drag, scrub, unmute.</p>
         </motion.div>
       </div>
 
@@ -60,27 +67,40 @@ export function Reels() {
               const isActive = i === selected;
               return (
                 <motion.div
-                  key={i}
-                  animate={{ scale: isActive ? 1 : 0.88, opacity: isActive ? 1 : 0.55 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="shrink-0 w-[260px] md:w-[320px] aspect-[9/16] relative rounded-3xl overflow-hidden shadow-card group cursor-pointer"
+                  key={r.src}
+                  animate={{ scale: isActive ? 1 : 0.86, opacity: isActive ? 1 : 0.5 }}
+                  transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                  className="shrink-0 w-[260px] md:w-[320px] aspect-[9/16] relative rounded-3xl overflow-hidden shadow-card group cursor-pointer ring-1 ring-border/40"
+                  onClick={() => emblaApi?.scrollTo(i)}
                 >
-                  <img
-                    src={r.img}
-                    alt={r.title}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
-                    loading="lazy"
+                  <video
+                    ref={(el) => {
+                      videoRefs.current[i] = el;
+                    }}
+                    src={r.src}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="size-16 rounded-full glass-strong flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Play className="size-6 text-primary fill-primary" />
-                    </div>
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4 pointer-events-none">
+                    <div className="font-display text-lg text-foreground drop-shadow">{r.title}</div>
                   </div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="font-display text-lg text-foreground">{r.title}</div>
-                    <div className="text-xs text-muted-foreground mt-1">{r.views} views</div>
-                  </div>
+                  {isActive && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMuted((m) => !m);
+                      }}
+                      aria-label={muted ? "Unmute" : "Mute"}
+                      className="absolute top-3 right-3 size-9 rounded-full glass-strong flex items-center justify-center text-primary"
+                    >
+                      {muted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
+                    </button>
+                  )}
                 </motion.div>
               );
             })}

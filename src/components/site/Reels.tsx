@@ -74,7 +74,9 @@ export function Reels() {
                   onClick={() => emblaApi?.scrollTo(i)}
                 >
                   <video
-                    ref={(el) => (videoRefs.current[i] = el)}
+                    ref={(el) => {
+                      videoRefs.current[i] = el;
+                    }}
                     src={r.src}
                     className="absolute inset-0 h-full w-full object-cover"
                     autoPlay

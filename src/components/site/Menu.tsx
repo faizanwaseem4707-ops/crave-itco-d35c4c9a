@@ -162,30 +162,47 @@ export function Menu() {
             {cat.note && <p className="mt-2 text-sm font-script text-muted-foreground">{cat.note}</p>}
           </div>
           <div className="space-y-3">
-            {cat.items.map((item, i) => (
-              <motion.div
-                key={item.name}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className="group glass rounded-2xl px-5 py-4 sm:px-6 sm:py-5 flex items-center justify-between gap-4 hover:border-primary/40 hover:shadow-glow transition-all duration-300"
-              >
-                <div className="flex-1 min-w-0">
-                  <div className="font-display text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors">{item.name}</div>
-                  {item.note && <div className="text-xs text-muted-foreground mt-1 italic">{item.note}</div>}
-                </div>
-                <div className="flex items-center gap-3 shrink-0">
-                  <span className="font-display text-lg sm:text-xl text-gradient-gold whitespace-nowrap">Rs {item.price}</span>
-                  <button
-                    onClick={() => handleAdd(item)}
-                    aria-label={`Add ${item.name} to cart`}
-                    className="size-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:scale-110 transition-transform shadow-glow"
-                  >
-                    <Plus className="size-4" />
-                  </button>
-                </div>
-              </motion.div>
-            ))}
+            {cat.items.map((item, i) => {
+              const variants = parseVariants(item);
+              return (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="group glass rounded-2xl px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 hover:border-primary/40 hover:shadow-glow transition-all duration-300"
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="font-display text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors">{item.name}</div>
+                    {item.note && <div className="text-xs text-muted-foreground mt-1 italic">{item.note}</div>}
+                  </div>
+                  <div className="flex items-center gap-2 sm:gap-3 shrink-0 flex-wrap justify-end">
+                    {variants ? (
+                      variants.map((v) => (
+                        <button
+                          key={v.label}
+                          onClick={() => handleAdd(item, v.label, v.price)}
+                          className="inline-flex items-center gap-2 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-primary-foreground px-3 py-1.5 text-xs uppercase tracking-[0.18em] transition-all"
+                        >
+                          <Plus className="size-3" /> {v.label} · Rs {v.price}
+                        </button>
+                      ))
+                    ) : (
+                      <>
+                        <span className="font-display text-lg sm:text-xl text-gradient-gold whitespace-nowrap">Rs {item.price}</span>
+                        <button
+                          onClick={() => handleAdd(item)}
+                          aria-label={`Add ${item.name} to cart`}
+                          className="size-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:scale-110 transition-transform shadow-glow"
+                        >
+                          <Plus className="size-4" />
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>

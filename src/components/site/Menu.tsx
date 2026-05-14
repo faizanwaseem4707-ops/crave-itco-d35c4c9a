@@ -93,16 +93,28 @@ export function Menu() {
   const cat = categories[active];
   const { add } = useCart();
 
-  const handleAdd = (item: Item) => {
-    const price = parsePrice(item.price);
+  const handleAdd = (item: Item, variantLabel?: string, variantPrice?: number) => {
+    const price = variantPrice ?? parsePrice(item.price);
     if (price === 0) return;
+    const idSuffix = variantLabel ? `-${variantLabel}` : "";
+    const nameSuffix = variantLabel ? ` (${variantLabel})` : "";
     add({
-      id: `${cat.title}-${item.name}`,
-      name: item.name,
+      id: `${cat.title}-${item.name}${idSuffix}`,
+      name: `${item.name}${nameSuffix}`,
       price,
-      priceLabel: item.price,
+      priceLabel: String(price),
     });
-    toast.success(`${item.name} added to cart`);
+    toast.success(`${item.name}${nameSuffix} added to cart`);
+  };
+
+  // detect dual-portion items like "400 / 800" with note "6 / 12 pcs"
+  const parseVariants = (item: Item): { label: string; price: number }[] | null => {
+    const prices = item.price.split("/").map((p) => parseInt(p.replace(/\D/g, ""), 10)).filter(Boolean);
+    const labels = item.note?.split("/").map((s) => s.trim());
+    if (prices.length >= 2 && labels && labels.length === prices.length) {
+      return prices.map((p, i) => ({ label: labels[i], price: p }));
+    }
+    return null;
   };
 
   return (
